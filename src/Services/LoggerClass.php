@@ -1,25 +1,24 @@
 <?php
 
 
-namespace App\Classes;
+namespace App\Services;
 
-
+use Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
+
 
 class LoggerClass
 {
-    /**
-     * @var Logger
-     */
     private $logger;
 
     /**
      * LoggerClass constructor.
-     * @param Logger $logger
-     * @throws \Exception
+     * @param LoggerInterface $logger
+     * @throws Exception
      */
-    public function __construct(Logger $logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger->pushHandler(new StreamHandler(__DIR__.'/src/Logs/log.info',Logger::INFO));
     }

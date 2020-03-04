@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Classes;
+namespace App\Services;
 
 
 use App\Controller\transform;
