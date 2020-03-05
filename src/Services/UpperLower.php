@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\Controller\transform;
+use App\services\transform;
 
 class UpperLower implements transform
 {

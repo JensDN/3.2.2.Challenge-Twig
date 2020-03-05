@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\Controller\transform;
+use App\Services\transform;
 
 class SpaceToDashes implements transform
 {

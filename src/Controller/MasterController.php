@@ -2,20 +2,16 @@
 
 namespace App\Controller;
 
+
 use App\Services\LoggerClass;
-use App\Services\SpaceToDashes;
+use App\Services\Master;
+
+use App\Services\transform;
 use App\Services\UpperLower;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-interface transform
-{
-    /**
-     * @param string $string
-     * @return string
-     */
-    public function transform (string $string):string;
-}
+
 
 
 class MasterController extends AbstractController
@@ -25,43 +21,33 @@ class MasterController extends AbstractController
      */
     private $logger;
     /**
-     * @var SpaceToDashes
+     * @var Master
      */
-    private $spaceToDashes;
-    /**
-     * @var UpperLower
-     */
-    private $UpperLower;
+    private $master;
 
     /**
      * MasterController constructor.
      * @param LoggerClass $logger
-     * @param SpaceToDashes $spaceToDashes
-     * @param UpperLower $UpperLower
+     * @param Master $master
      */
-    public function __construct(LoggerClass $logger,SpaceToDashes $spaceToDashes, UpperLower $UpperLower)
+    public function __construct(LoggerClass $logger)
     {
 
         $this->logger = $logger;
-        $this->spaceToDashes = $spaceToDashes;
-        $this->UpperLower = $UpperLower;
     }
 
 
     /**
      * @Route("/", name="master_index")
+     * @param Master $master
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(Master $master)
     {
+
         if(isset($_POST['text'])){
             $this->logger->message($_POST['text']);
-            if ($_POST['type']=== 'spaceToDashes'){
-                $output = $this->spaceToDashes;
-            }
-            if ($_POST['type']=== 'UpperLower'){
-                $output = $this->UpperLower;
-            }
-                echo $output->transform($_POST['text']);
+            echo  $master->getMaster()->transform($_POST['text']);
         }
         return $this->render('master/index.html.twig', [
             'controller_name' => 'MasterController',
